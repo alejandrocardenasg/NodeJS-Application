@@ -1,0 +1,617 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body{
+    background: rgb(255, 255, 255);
+}
+
+.alerta2 {
+    background: rgb(247, 233, 108);
+    border: 0.2px solid rgb(235, 219, 78);
+    color:rgb(150, 139, 43);
+    height:50px;
+    font-family: 'Segoe UI';
+    font-size: 12px;
+    padding-top: 15px;
+    text-align: center;
+    margin-top: 5px;
+    max-width: 400px;
+    margin: 0 auto 1rem auto;
+
+}
+
+.navegacion{
+    width: 1500px;
+    height: 60px auto;
+    margin: 0px auto;
+    background: #364f83;
+    padding-top: 19px;
+    padding-bottom: -10px;
+}
+
+
+.navegacion ul{
+    list-style: none;
+
+}
+
+.menu > li{
+    position: relative;
+    display: inline-block;
+}
+
+.menu > li > a{
+    display: block;
+    padding: 20px 30px;
+    margin-bottom: 10px;
+    margin-top:-11px;
+    color:rgba(255, 255, 255,0.8);
+    font-family: Roboto;
+    text-decoration: none;
+
+}
+
+.menu li a:hover{
+    color: rgb(255, 255, 255);
+    transition: all .3s;
+}
+
+.submenu{
+    position: absolute;
+    background:  rgba(139, 107, 107, 0.8);
+    width: 130%;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.submenu li a{
+    display: block;
+    padding: 15px;
+    color: #fff;
+    font-family: Roboto;
+    text-decoration: none;
+}
+
+.menu li:hover .submenu{
+    visibility: visible;
+    opacity: 0.8;
+}
+
+.navegacion2{
+    background: white;
+    margin: 30px auto;
+    height: auto;
+    width: 1000px;
+}
+
+.menu2{
+    background: rgba(241, 239, 239, 0.8);
+}
+
+.navegacion2 ul{
+    list-style: none;
+}
+
+.navegacion2 div[name=titular]{
+    font-family: SuisseWorks;
+    font-size: 22px;
+}
+
+.menu2 > li{
+    position: relative;
+    display: inline-block;
+}
+
+.menu2 > li > a{
+    display: block;
+    padding: 15px 20px;
+    color:black;
+    font-family: Roboto;
+    text-decoration: none;
+}
+
+.menu2 li a:hover{
+    color: rgb(85, 64, 64);
+    transition: all .3s;
+    border-right: 1px solid rgba(219, 219, 219, 0.8) ;
+}
+
+.contenido-ce{
+    background: white;
+    margin-left: 30%;
+    height: auto;
+    width: 400px;
+    padding-top: 23px;
+    color: black;
+}
+
+.contenido-ce h2{
+    font-family: SuisseWorks;
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+.invisible{
+    visibility: hidden;
+}
+
+.contenido-form{
+    font-family: Roboto;
+    font-size: 20px;
+    color: white;
+    background: white;
+    height: 46px;
+    text-align: center;
+    padding-top: 23px;
+    color: black;
+}
+
+.contenido-form ul{
+    list-style: none;
+}
+
+.contenido-form li{
+    position: relative;
+}
+
+
+.contenido-form li label{
+    display: inline-block;
+    text-align: center;
+
+}
+
+.contenido-form li a{
+    display: block;
+}
+
+.espacio{
+    padding-top: 50px;
+}
+
+.mostrar_evaluación{
+    margin-left: 40px;
+    width: 450px;
+    border: 1px solid #b5b6b860;
+    
+}
+
+.mostrar_evaluación h5[name=bar1]{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: Segoe UI;
+    font-size: 19px;
+    font-weight: 300;
+    background: #d8dbdd5d;
+    color: #2b2c2cc0;
+    padding-left: 10px;
+    border-bottom:1px solid #d8dbddad;
+}
+
+.mostrar_evaluación h5[name=bar2]{
+    padding-top: 4px;
+    font-size: 19px;
+    font-weight: 400;
+    color: #2b2c2cee;
+    font-family: Segoe UI;
+    padding-left: 10px;
+}
+
+.mostrar_evaluación p{
+    font-size: 15px;
+    font-family: Segoe UI;
+    font-weight: 300;
+    height: 12px;
+    padding-left: 10px;
+
+}
+
+.mostrar_evaluación ul{
+    list-style:  none;
+    padding-left: 10px;
+}
+
+.mostrar_evaluación ul li{
+    background: #0d6efd;
+    border: 1px solid rgba(110, 106, 106, 0.473);
+    width: 100px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    padding-top: 7px;
+    border-radius: 5%;
+    margin-right: 10px;
+}
+
+.mostrar_evaluación ul li a{
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    padding-left: 13px;
+    padding-right: 13px;
+}
+
+.mostrar_evaluación ul li a[name=ver_a]{
+    padding-left: 34px;
+    padding-right: 37px;
+}
+
+.mostrar_evaluación ul li a[name=eliminar_a]{
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-left: -5px;
+}
+
+
+.mostrar_evaluación div[name=espacio-bar]{
+    padding-top:7px;
+}
+
+.mostrar_evaluación ul li:hover{
+    background:#8d8d8dbb;
+}
+
+.master_mostrar > div[name=espacio-bar]{
+    padding-top: 10px;
+}
+
+.master_actualizar{
+    width: 500px;
+    margin-left: 30px;
+}
+
+.time_format{
+    list-style: none;
+    margin-bottom: -3px;
+}
+
+.time_format li{
+    margin-right: 10px;
+    display:inline-block;
+}
+
+.time_format li p{
+    color:rgba(34, 33, 33, 0.822);
+}
+
+.Buscador{
+    position: fixed;
+    list-style: none;
+    border:1px solid rgba(110, 106, 106, 0.199);
+    width: 25%;
+    height: auto;
+    margin-left:560px;
+
+}
+
+.Buscador ul{
+    margin-top: 30px;
+}
+
+.Buscador li{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.alerta3{
+    background: rgb(247, 233, 108);
+    border: 0.2px solid rgb(235, 219, 78);
+    color:rgb(150, 139, 43);
+    border-radius: 4%;
+    font-weight: 400;
+    height:50px;
+    font-family: 'Segoe UI';
+    font-size: 14px;
+    padding-top: 15px;
+    text-align: center;
+    margin-top: 5px;
+    max-width: 420px;
+    margin: 0 auto 1rem auto;
+}
+
+.alerta4{
+    background: rgb(54 79 131);
+    border: 0.2px solid rgb(57 70 157);
+    color: rgb(255 255 255);
+    border-radius: 5px;
+    font-weight: 400;
+    height:50px;
+    font-family: 'Segoe UI';
+    font-size: 14px;
+    padding-top: 15px;
+    text-align: center;
+    margin-top: 5px;
+    max-width: 420px;
+    margin: 0 auto 1rem auto;
+}
+
+.master_delete{
+    margin-left: 30px;
+    width: 500px;
+}
+
+.master_delete h5{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: Segoe UI;
+    font-size: 17px;
+    font-weight: 400;
+    color: #2b2c2cc0;
+    padding-left: 10px;
+    border-bottom:1px solid #d8dbddad;
+}
+
+.master_delete ul{
+    padding-left: 10px;
+    list-style: none;
+}
+
+.master_delete ul li{
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.tool-tip{
+    position: absolute;
+    font-size: 'Poppins';
+    font-weight: 300;
+    display: none;
+    margin-top: -50px;
+    margin-left: 10px;
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 40px;
+    text-align: center;
+    padding-top: 8px;
+    border-radius: 25px;
+    box-shadow: 0 5px 5px black;
+    
+    background: #212529;
+}
+
+.terminar_ev:hover .tool-tip{
+    display:block;
+    background: #212529;
+    color:white;
+    opacity: 0.6;
+}
+
+.actualizar_evaluador{
+    width: 500px;
+    margin-left: 30px;
+}
+
+.actualizar_evaluador h5[name=bar1]{
+    padding-top: 4px;
+    font-size: 19px;
+    font-weight: 400;
+    color: #2b2c2cee;
+    font-family: Segoe UI;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.btn_wait_for_submit1 ul{
+    list-style: none;
+    margin-left:-8px;
+}
+
+.btn_wait_for_submit1 ul li{
+    display: inline-block;
+    padding-right: 10px;
+}
+
+.btn_wait_for_submit1 input[id=btn1]{
+    width: 80px;
+    cursor: pointer;
+}
+
+.space10px{
+
+    height: 30px;
+
+}
+
+.infousuario{
+    margin-left: 50px;
+    background-color: white;
+    width: 800px;
+    border: 1px solid #8d8d8d34;
+    padding-bottom: 10px;
+}
+
+.infousuario h5{
+    padding-top: 10px;
+    padding-left: 10px;
+    margin-right: -1px;
+    font-weight: 400;
+    padding-bottom: 10px;
+    font-family: Segoe UI;
+    background: #d8dbdd5d;
+    border-bottom: 1px solid #d8dbdd5d;
+    color: #727475c0;
+}
+
+.infousuario p{
+    margin-left: 10px;
+    margin-bottom: 2px;
+    color: #727475c0;
+}
+
+.infousuario .btn_regresar{
+    margin-left: 10px;
+    margin-top: 6px;
+    padding-top: 4px;
+    width: 90px;
+    border-top: 1px solid #d8dbddc4;
+}
+
+.btnprim{
+    background-color: #0d6efd;
+    text-decoration: none;
+    color: white;
+    margin-right: -1px;
+    text-align: center;
+    height: 30px;
+}
+
+.mostrar_evaluación .btnprimb{
+    text-decoration: none;
+    color:white;
+    padding-left: 168px;
+    padding-right: 168px;
+    padding-bottom: 10px;
+}
+
+.btnprimb:hover .btnprim{
+    color:white;
+}
+
+.opciones{
+    width: 1200px;
+    margin-left: -100px;
+}
+
+.opciones h5[name=title]{
+    margin-left: 50px;
+    font-family: 'Segoe UI';
+    color: #727475c0;
+    font-weight: 400;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #d8dbddc4;
+}
+
+.opciones > ul{
+    list-style: none;
+}
+
+.ocpiones > ul > ul{
+    border: 1px solid black;
+}
+
+.opciones > ul > form ul li{
+    padding-right: 10px;
+    display: inline-block;
+    width: 120px;
+}
+
+.opciones > ul > form ul li[name=opcion]{
+    margin-right: 0px;
+    width: 30px;
+}
+
+.opciones > ul > form ul li[name=opcion] input{
+    
+    width: 16px;
+    height: 16px;
+}
+
+.opciones > ul > form ul li h6{
+    font-weight: 380;
+}
+
+.opciones > ul > form ul li p{
+    font-weight: 200;
+}
+
+.btn_proc{
+    margin-left: 30px;
+}
+
+.btn_proc button{
+    width: 150px;
+}
+
+.Cambiar_contraseña p{
+    text-align: center;
+    color: rgba(39, 39, 39, 0.795); 
+    font-size: 14px;
+    font-family: Roboto;
+    font-weight: 300;
+}
+
+#aa{
+    color: rgba(255,153,0,0.8);
+    color: rgba(42,142,26,0);
+    color: rgba(242, 16, 16, 0);
+    color: rgba(253, 15, 241, 0.658);
+    color: rgba(15, 90, 253, 0.658)
+}
+
+table{
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #ccc !important;
+}
+
+td{
+    border-top: 1px solid #ccc !important;
+
+}
+
+.pasos h5{
+    display: inline;
+    text-align: center;
+}
+
+.pasos .numero_paso{
+    background: #212529;
+    padding: 2px 10px; 
+    border-radius: 50%;
+}
+
+#paso1{
+    color:rgb(228, 228, 228);
+}
+
+#paso2{
+    color:rgb(228, 228, 228);
+}
+
+.imagen_postural{
+    display: none;
+    width: 900px;
+    margin: 10px auto;
+}
+
+.imagen_postural ul{
+    list-style: none;
+}
+
+.imagen_postural ul li{
+    display:inline;
+
+}
+
+.imagen_postural ul li div{
+    display: inline-block;
+    text-align: center;
+    width: 410px;
+}
+
+.imagen_postural div ul h6{
+    display: inline;
+}
+
+.imagen_postural ul li img{
+    width: 400px;
+    height: 360px;
+    margin: 0px 10px;
+}
+
+.paso2 h6{
+    display: inline;
+    font-weight: 400;
+}
+
+.imagen_postural .Tabla_angulos{
+    width: 800px;
+    margin: 0 auto;
+}

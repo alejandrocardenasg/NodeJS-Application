@@ -1,0 +1,132 @@
+extends layout3.pug
+
+block contenido
+
+        header
+        
+            nav(class="navegacion2")
+
+                div(name="titular")
+                    h1 Mis evaluaciones 
+
+                ul(class="menu2")
+                    li  
+                        a(href="/profile/crearEv") Crear evaluación
+                    li
+                        a(href="/profile") Evaluaciones
+                
+
+                if(users)
+
+                    div(class="Buscador")
+                            ul
+                                li
+                                    div(class="form-floating mb-3")
+                                        input(type="number" name="id_Ref" class="form-control" id="floatingInput" placeholder="Identificación")
+                                        label(for="id_Ref") Identificación
+                                li 
+                                    a(id = "btn_buscar" class="btn btn-dark") Buscar
+
+                    script. 
+                        const btnBuscar = document.getElementById("btn_buscar");
+                        var id = document.getElementById("floatingInput");
+
+                            btnBuscar.addEventListener('click', ()=>{
+                                const valor = id.value;
+                                btnBuscar.setAttribute("href","/profile");
+                                if(valor == ""){
+                                    btnBuscar.setAttribute("href","/profile");
+                                }else{
+                                    btnBuscar.setAttribute("href","/profile/BuscarId/" + valor);
+                                }
+                            })
+
+
+                    each user in users
+                        div(class="master_mostrar")
+                            div(class='mostrar_evaluación')
+                                h5(name = "bar1") Evaluación 
+                                h5(name = "bar2")=user.nombre
+
+                                p="Organización: " + user.org 
+                                p(id="identificacion")="Identificación: " + user.identificacion
+                                p="Serial: " + user.serial + " - Tiempo: " + user.tiempo + " Horas:Minutos"
+                                div(name="espacio-bar")
+                                ul 
+                                    li 
+                                        a(href=("/profile/watch/" + user.identificacion) name="ver_a") Ver 
+                                    li 
+                                        a(href=("/profile/update/" + user.identificacion) id="btn_act") Actualizar 
+                                    li 
+                                        a(href=("/profile/eliminar/" + user.identificacion) name="eliminar_a") Eliminar
+
+                            div(name="espacio-bar")
+
+                if(usersupdate)
+
+                    if(mensaje != "")
+                        .alerta3=mensaje
+
+                    each user in usersupdate
+                        div(class="master_actualizar")
+                            div(class='actualizar_evaluación')
+                                form(action="/profile/update" method="POST")
+                                    
+                                    h5(name = "bar1") Actualizar evaluación 
+
+                                    div(class="form-floating mb-3")
+                                        input(class="form-control" type="text" value=(user.nombre) aria-label="Disabled input example" readonly name="name")
+                                        label(for="nombre") Nombre Completo
+                                    div(class="form-floating mb-3")
+                                        input(class="form-control" type="number" value=(user.identificacion) aria-label="Disabled input example" readonly name="identificacion")
+                                        label(for="identificacion") Identificación
+                                    div(class="form-floating mb-3")
+                                        input(class="form-control" type="text" value=(user.org) aria-label="Disabled input example" readonly name="org")
+                                        label(for="org") Organización
+                                    div(class="form-floating mb-3")
+                                        input(type="text" name = "serial" class="form-control" id="floatingInput" placeholder="Serial" value = (user.serial))
+                                        label(for="serial") Serial
+                                    ul(class="time_format")
+                                        li
+                                            div(class="form-floating mb-3")
+                                                p Tiempo de evaluación: 
+                                        li
+                                            div(class="form-floating mb-3")
+                                                input(type="number" name = "horas" min="0" max="8" step="1" class="form-control" id="floatingInput" placeholder="Horas" value=(user.horas))
+                                                label(for="tiempo") Horas
+                                        li 
+                                            div(class="form-floating mb-3")
+                                                input(type="number" name = "minutos" min="0" max="59" step="1" class="form-control" id="floatingInput" placeholder="Minutos" value=(user.minutos))
+                                                label(for="tiempo") Minutos
+                                    div(class="form-floating mb-3")
+                                            input(class="form-control" type="text" value=(nombre) aria-label="Disabled input example" readonly name="evaluador")
+                                            label(for="evaluador") Evaluador
+                                    ul(class="time_format")
+                                        li                                      
+                                            button(type="submit" class="btn btn-dark") Actualizar evaluación
+                                        li 
+                                            div(class="terminar_ev")
+                                                div(class="tool-tip") Establecer Serial en NINGUNO y tiempo en 00:00
+                                                a(href=("/profile/update/terminar/" + user.identificacion)  class="btn btn-dark" id="btnterminar_ev") Terminar evaluación
+
+                if(delete_user)
+                    div(class="master_delete")
+
+                        h5(name = "bar1") Estas a punto de eliminar la siguiente evaluación. ¿Estas seguro? 
+                        div(class="form-floating mb-3")
+                            input(class="form-control" type="text" value=(delete_user.nombre) aria-label="Disabled input example" readonly name="name")
+                            label(for="nombre") Nombre Completo
+                        div(class="form-floating mb-3")
+                            input(class="form-control" type="number" value=(delete_user.identificacion) aria-label="Disabled input example" readonly name="identificacion")
+                            label(for="identificacion") Identificación
+                        div(class="form-floating mb-3")
+                            input(class="form-control" type="text" value=(delete_user.org) aria-label="Disabled input example" readonly name="org")
+                            label(for="org") Organización
+                        ul 
+                            li
+                                a(href=("/profile/eliminarEv/" + delete_user.identificacion)  class="btn btn-dark") Confirmar
+                            li
+                                a(href=("/profile")  class="btn btn-dark") Regresar
+
+
+

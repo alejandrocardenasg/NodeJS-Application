@@ -1,0 +1,48 @@
+extends layout1.pug
+
+block contenido
+
+    div
+        aside(class="contenido")
+            h2 ¡Inicia Sesión con tu cuenta!
+
+            div(class="clearfix")
+
+            div(class="login")
+
+                form(action="/login" method="POST")
+                    
+                    div(name="form")
+
+                        if errores.text
+                            .alerta=errores.text
+
+                        if (registered != "")
+                            div(class="success_alerta")
+                                h4 ¡Bien hecho!
+                                p ¡Usted se ha registrado satisfactoriamente! 
+
+
+                        div 
+                        
+                        input(type="email" placeholder="Correo electrónico" name="correo")
+                        img(src="/img/icon-correo.png" name = "correo-icon")
+
+                        div 
+
+                        input(type="password" placeholder="Constraseña" name="password")
+                        img(src="/img/icon-password.png" name = "password-icon")
+                    
+                    div(name="action")
+
+                        a(href="/recover_password") ¿Olvidaste tu contraseña?
+                        
+                        a(href="/registro") Registrarse
+
+                    div(class="clearfix")
+
+                    div(name="boton")
+                        input(type="submit" value="Iniciar Sesión")
+
+    <div class="clearfix"></div>
+

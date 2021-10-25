@@ -1,0 +1,223 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Segoe UI', Roboto, Geneva, Verdana, sans-serif;
+    text-decoration: none;
+}
+
+.clearfix{
+    clear:both;
+    float:none;
+}
+
+body{
+    background: white;
+}
+
+.barra {
+    width: 100%;
+    height: auto;
+    background: white;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.barra nav{
+    clear: both;
+    width:100%;
+    height: 60px;
+    background: white;
+    overflow: hidden;
+}
+
+.barra div{
+    margin-top: -8px;
+    float:left;
+    margin-left: 10px;
+}
+
+.barra div a{
+    font-family: segoe ui emoji;
+    font-size: 50px;
+    letter-spacing: 0.2px;
+    color: #C9C9C9;
+    transition: all 500ms;
+}
+
+.barra div a:hover{
+    cursor: pointer;
+    color: purple;
+}
+
+.barra ul{
+    font-family: Roboto;
+    font-size:15px;
+    margin-top:5px;
+    list-style: none;
+}
+
+.barra ul li{
+    margin-left: 10px;
+    margin-right: 20px;
+    float: right;
+    line-height: 50px;
+}
+
+.barra ul li a{
+    font-family: Roboto;
+    color: #c9c9c9;
+}
+
+.barra ul li a:hover{
+    font-family: Roboto;
+    color: purple;
+}
+
+.contenido h2{
+    font-family: Roboto;
+    font-size: 20px;
+    color: white;
+    background: black;
+    height: 46px;
+    text-align: center;
+    padding-top: 23px;
+}
+
+.login{
+    text-align: center;
+    margin-top: 30px;
+    font-size: 20px;
+    color: #876464;
+}
+
+.login form{
+    padding-top: 6px;
+    padding-bottom: 10px;
+    line-height: 1.43;
+    display: block;
+}
+
+.login form div input{
+    margin-top: 10px;
+    height: 40px;
+    width: 300px;
+    color: #1c1d1f;
+    font-family: Roboto;
+    font-size: 18px;
+    text-align: center;
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.login form div[name=action]{
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.login form img[name=correo-icon]{
+    position: absolute;
+    height: 30px;
+    margin-left: -370px;
+    margin-top: 19px;
+}
+
+.login form img[name=password-icon]{
+    position: absolute;
+    height: 30px;
+    margin-left: -372px;
+    margin-top: 16px;
+}
+
+.login form div[name=action] a{
+    font-family: Roboto;
+    margin-right: 12px;
+    margin-left: 10px;
+    color: #C9C9C9;
+}
+
+.contenido div[name=space]{
+    margin-top: 10px;
+}
+
+.alerta {
+    background: rgb(247, 233, 108);
+    border: 0.2px solid rgb(235, 219, 78);
+    color:rgb(150, 139, 43);
+    height:30px;
+    font-family: 'Segoe UI';
+    font-size: 12px;
+    padding-top: 15px;
+    text-align: center;
+    margin-top: 5px;
+    max-width: 400px;
+    margin: 0 auto 1rem auto;
+
+}
+
+.success_alerta{
+    background: #d1e7dd;
+    border-color: #badbcc;
+    color: #0f5132;
+    max-width: 400px;
+    height:80px;
+    text-align: center;
+    margin: 0 auto 1rem auto;
+}
+
+.success_alerta h4{
+    padding-top: 5px;  
+    margin-left:10px;
+    margin-right: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(31, 80, 35, 0.5);
+}
+
+.success_alerta p{
+    padding-top: 10px;
+    font-size: 15px;
+}
+
+.login form div[name=action] a:hover{
+    cursor: pointer;
+    color: purple;
+}
+
+.login form div[name='boton']{
+    background:white
+}
+
+.login form div[name='boton'] input{
+    font-family: segoe ui;
+    font-size: 15px;
+    cursor: pointer;
+    background: #a435f0;
+    border: 1px solid transparent;
+    color:white;
+    -webkit-appearance: button;
+    border:transparent;
+    width: 330px;
+}
+
+.footer div{
+    margin-top: 30px;
+    background: black;
+    height: 25px;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    padding: 50px;
+}
+
+.login p[name=info_req]{
+    margin-top: 20px;
+    text-align: center;
+    width: auto;
+    height: auto;
+    font-size: 12px;
+    color: purple;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom:5px;
+}
+

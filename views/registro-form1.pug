@@ -1,0 +1,49 @@
+extends layout1.pug
+
+block contenido
+
+    div
+        aside(class="contenido")
+            h2 ¡Registrate!
+
+            div(class="clearfix")
+            div(name="space")
+
+            div(class="login")
+
+                form(action="/validar-Form-registro" method="POST")
+                    
+                    div(name="form")
+
+                        if errors_f1.nombre
+                            .alerta=errors_f1.nombre
+                        if errors_f1.apellido
+                            .alerta=errors_f1.apellido
+                        if errors_f1.org
+                            .alerta=errors_f1.org
+                        if errors_f1.correo
+                            .alerta=errors_f1.correo
+
+                        div 
+
+                        input(type="text" placeholder="Nombres" name="nombre" value=(recovery_f1.nombre))
+
+                        div 
+
+                        input(type="text" placeholder="Apellidos" name="apellido" value=(recovery_f1.apellido))
+                
+                        div
+
+                        input(type="text" placeholder="Organización" name="org" value=(recovery_f1.org))
+                        
+                        div 
+
+                        input(type="email" placeholder="Correo electrónico" name="correo" value=(recovery_f1.correo))
+
+                    div(class="clearfix")
+
+                    div(name="boton")
+                        input(type="submit" value="Siguiente")
+ 
+
+    <div class="clearfix"></div>

@@ -1,0 +1,98 @@
+extends layout3.pug
+
+block contenido
+
+    nav(class="navegacion2")
+
+        div(name="titular")
+            h1 Mi cuenta
+
+        ul(class="menu2")
+            li  
+                a(href="/profile/micuenta") Mis datos
+            li
+                a(href="/profile/micuenta/passChange") Cambiar contraseña
+
+        div(class='actualizar_evaluador')
+                
+            if(exitochangepass)
+                .alerta4=exitochangepass
+
+            if(errores)
+                if errores.nombre
+                    .alerta2=errores.nombre
+                if errores.apellido
+                    .alerta2=errores.apellido
+                if errores.org
+                    .alerta2=errores.org
+                if errores.correo
+                    .alerta2=errores.correo
+                if errores.password
+                    .alerta2=errores.password 
+
+            h5(name = "bar1") Actualizar Datos 
+
+            if(isvalidated==true)
+                form(action="/profile/micuenta/validatePassword" method="POST")
+                    div(class="form-floating mb-3")
+                        input(class="form-control" type="text" value=(datos_login_new.nombre) aria-label="Disabled input example" readonly name="name")
+                        label(for="nombre") Nombres
+                    div(class="form-floating mb-3")
+                        input(class="form-control" type="text" value=(datos_login_new.apellido) aria-label="Disabled input example" readonly name="apellido")
+                        label(for="apellido") Apellidos
+                    div(class="form-floating mb-3")
+                        input(class="form-control" type="text" value=(datos_login_new.org) aria-label="Disabled input example" readonly name="org")
+                        label(for="org") Organización
+                    div(class="form-floating mb-3")
+                        input(class="form-control" type="email" value=(datos_login_new.correo) aria-label="Disabled input example" readonly name="correo")
+                        label(for="correo") Correo electrónico
+                    div(id="wait_for_pass")
+                        div(class="form-floating mb-3")
+                            input(type="password" name = "password" class="form-control" id="floatingInput" placeholder="Contraseña")
+                            label(for="password") Contraseña
+                    div(class="btn_wait_for_submit1")
+                        ul 
+                            li 
+                                button(class="btn btn-dark" type="submit") Actualizar
+                            li 
+                                a(class="btn btn-dark" href="/profile/micuenta") Atras
+            else
+
+                form(action="/profile/micuenta/validate" method="POST" id="f1")
+                    div(class="form-floating mb-3")
+                        input(type="text" name = "name" class="form-control" id="floatingInput" placeholder="Nombres" value = (datos_login.nombre))
+                        label(for="nombre") Nombres
+                    div(class="form-floating mb-3")
+                        input(type="text" name = "apellido" class="form-control" id="floatingInput" placeholder="Apellidos" value = (datos_login.apellido))
+                        label(for="apellido") Apellidos
+                    div(class="form-floating mb-3")
+                        input(type="text" name = "org" class="form-control" id="floatingInput" placeholder="Organización" value = (datos_login.org))
+                        label(for="org") Organización
+                    div(class="form-floating mb-3")
+                        input(type="email" name = "correo" class="form-control" id="floatingInput" placeholder="Correo electrónico" value = (datos_login.correo))
+                        label(for="correo") Correo electrónico
+                    div(class="btn_wait_for_submit1")
+                        input(class="btn btn-dark" id="btn1" type="button" value="Validar")
+
+    script(type='text/javascript' src='/javascript/js1.js')
+    //script(type='text/javascript' src='/javascript/js2.js')
+
+    //script.
+
+        const btn1 = document.getElementById("btn1");
+        const inombre = document.getElementsByName("name");
+        const iapellido = document.getElementsByName("apellido");
+        const iorg = document.getElementsByName("org");
+        const icorreo = document.getElementsByName("correo");
+        inombre[0].addEventListener('change', ()=>{
+                btn1.type = 'submit';
+        })
+        iapellido[0].addEventListener('change', ()=>{
+                btn1.type = 'submit';
+        })
+        iorg[0].addEventListener('change', ()=>{
+                btn1.type = 'submit';
+        })
+        icorreo[0].addEventListener('change', ()=>{
+                btn1.type = 'submit';
+        })

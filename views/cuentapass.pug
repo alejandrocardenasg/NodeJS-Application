@@ -1,0 +1,73 @@
+extends layout3.pug
+
+block contenido
+
+    nav(class="navegacion2")
+
+        div(name="titular")
+            h1 Mi cuenta
+
+        ul(class="menu2")
+            li  
+                a(href="/profile/micuenta") Mis datos
+            li
+                a(href="/profile/micuenta/passChange") Cambiar contraseña
+
+        if(errores)
+            if errores.password
+                .alerta2=errores.password
+
+        if(passChange)
+            div(class='Cambiar_contraseña')
+                form(action="/profile/micuenta/passChange/ActualizarPass" method="POST")
+                    div(class="form-floating mb-3")
+                        input(type="password" name = "oldpassword" class="form-control" id="floatingInput" placeholder="Contraseña" required="required")
+                        label(for="oldpassword") Contraseña
+
+                    div(class="form-floating mb-3")
+                        input(type="password" name = "npassword" pattern=".{8,}" class="form-control" id="floatingInput" placeholder="Nueva Contraseña" required="required")
+                        label(for="npassword") Nueva Contraseña
+
+                    div(class="form-floating mb-3")
+                        input(type="password" name = "cpassword" class="form-control" id="floatingInput" placeholder="Confirmar Contraseña" required="required")
+                        label(for="cpassword") Confirmar Contraseña
+
+                    div(class="btn_passChange")
+                        input(class="btn btn-dark" id="btnpass" type="submit" value="Actualizar" Disabled)
+                br
+                p(name = "info_req") *La contraseña debe contener mínimo una minúscula, una mayúscula, un número y 8 caracteres (No acepta caracteres especiales como #,$,-,_,entre otros).
+
+    
+    script.
+        const oldpassword = document.getElementsByName("oldpassword")[0];
+        const npassword = document.getElementsByName("npassword")[0];
+        const cpassword = document.getElementsByName("cpassword")[0];
+        const btn_pass = document.getElementById("btnpass");
+        cpassword.addEventListener('keyup', ()=>{
+  
+            if(oldpassword.value.length != 0 && npassword.value == cpassword.value){
+                btn_pass.disabled = false;
+            }else{
+                btn_pass.disabled = true;  
+            }
+        })
+
+    //script.
+
+        const btn1 = document.getElementById("btn1");
+        const inombre = document.getElementsByName("name");
+        const iapellido = document.getElementsByName("apellido");
+        const iorg = document.getElementsByName("org");
+        const icorreo = document.getElementsByName("correo");
+        inombre[0].addEventListener('change', ()=>{
+                btn1.type = 'submit';
+        })
+        iapellido[0].addEventListener('change', ()=>{
+                btn1.type = 'submit';
+        })
+        iorg[0].addEventListener('change', ()=>{
+                btn1.type = 'submit';
+        })
+        icorreo[0].addEventListener('change', ()=>{
+                btn1.type = 'submit';
+        })

@@ -1,0 +1,63 @@
+extends layout3.pug
+
+block contenido
+
+        header
+            nav(class="navegacion2")
+
+                div(name="titular")
+                    h1 Mis evaluaciones 
+
+                ul(class="menu2")
+                    li  
+                        a(href="/profile/crearEv") Crear evaluación
+                    li
+                        a(href="/profile") Evaluaciones
+
+        aside(class="contenido-ce") 
+
+            if errores_ev.nombre
+                .alerta2=errores_ev.nombre
+            if errores_ev.identificacion
+                .alerta2=errores_ev.identificacion
+            if errores_ev.serial
+                .alerta2=errores_ev.serial
+            if errores_ev.org
+                .alerta2=errores_ev.org
+            if errores_ev.tiempo
+                .alerta2=errores_ev.tiempo
+            if errores_ev.evaluador
+                .alerta2=errores_ev.evaluador           
+
+            h2 Crear evaluación
+            form(action="/profile/crearEv/validar" method="POST")
+                div(class="form-floating mb-3")
+                    input(type="text" name = "nombre" class="form-control" id="floatingInput" placeholder="Nombre Completo" value = (datos_ev.nombre))
+                    label(for="nombre") Nombre Completo
+                div(class="form-floating mb-3")
+                    input(type="number" name = "identificacion" class="form-control" id="floatingInput" placeholder="Identificación" value = (datos_ev.identificacion))
+                    label(for="identificacion") Identificación
+                div(class="form-floating mb-3")
+                    input(type="text" name = "serial" class="form-control" id="floatingInput" placeholder="Serial" value = (datos_ev.serial))
+                    label(for="serial") Serial
+                div(class="form-floating mb-3")
+                    input(type="text" name = "org" class="form-control" id="floatingInput" placeholder="Organización" value=(datos_login.org))
+                    label(for="org") Organización
+                ul(class="time_format")
+                    li
+                        div(class="form-floating mb-3")
+                            p Tiempo de evaluación: 
+                    li
+                        div(class="form-floating mb-3")
+                            input(type="number" name = "horas" min="0" max="8" step="1" class="form-control" id="floatingInput" placeholder="Horas" value=(tiempo.horas))
+                            label(for="tiempo") Horas
+                    li 
+                        div(class="form-floating mb-3")
+                            input(type="number" name = "minutos" min="0" max="59" step="1" class="form-control" id="floatingInput" placeholder="Minutos" value=(tiempo.minutos))
+                            label(for="tiempo") Minutos
+                div(class="form-floating mb-3")
+                    input(class="form-control" type="text" value=(nombre) aria-label="Disabled input example" readonly name="evaluador")
+                    label(for="evaluador") Evaluador
+                button(type="submit" class="btn btn-dark") Registrar evaluación
+
+        div(class = "espacio")

@@ -1,0 +1,44 @@
+extends layout1.pug
+
+block contenido
+
+    div
+        aside(class="contenido")
+            h2 ¡Registrate!
+
+            div(class="clearfix")
+
+            div(class="login")
+
+                form(action="/validar-Form2-registro" method="POST")
+                    
+                    div(name="form")
+
+                        if errors_f2.correo
+                            .alerta=errors_f2.correo
+                        if errors_f2.contraseña
+                            .alerta=errors_f2.contraseña
+
+                        div 
+                    
+                        input(type="email" placeholder="Correo electrónico" name="correo")
+
+                        div 
+
+                        input(type="password" placeholder="Contraseña" name="password")
+                        
+                        div 
+
+                        input(type="password" placeholder="Confirmar Contraseña" name="conf_password")
+                    
+                    div 
+
+                    p(name = "info_req") *La contraseña debe contener mínimo una minúscula, una mayúscula, un número y 8 caracteres (No acepta caracteres especiales como #,$,-,_,entre otros).
+
+                    div(class="clearfix")
+
+                    div(name="boton")
+                        input(type="submit" value="Registrar")
+
+
+    <div class="clearfix"></div>

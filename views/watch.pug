@@ -1,0 +1,39 @@
+extends layout3.pug
+
+block contenido
+        header
+        
+            nav(class="navegacion2")
+
+                div(name="titular")
+                    h1 Mis evaluaciones 
+
+                ul(class="menu2")
+                    li  
+                        a(href="/profile/crearEv") Crear evaluación
+                    li
+                        a(href="/profile") Evaluaciones
+
+                if(user)
+                    if(Lista)
+                        div(class="infousuario")
+                            h5(name = "bar2")= user.nombre
+                            p="Organización: " + user.org 
+                            p(id="identificacion")="Identificación: " + user.identificacion
+
+                        div(class="space10px")
+
+                        - var i = 0
+                        each report in Lista
+
+                            div(class='mostrar_evaluación')
+                                - i = i + 1
+                                h5(name = "bar1")= "Reporte #" + i 
+                                h5(name = "bar2")= "Fecha del reporte: " + report
+                                div(class="btnprim")
+                                    a(href=("/profile/watch/" + user.identificacion + "/" + report) class = "btnprimb")="Ver Reporte #" + i 
+
+                            div(name="espacio-bar")
+
+                        div(class="space10px")
+

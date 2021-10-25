@@ -1,0 +1,146 @@
+.general
+{    width: 1000px;
+    margin-left: -10px;
+}
+
+.general > h5{
+    margin-left: 30px;
+    font-size: 25px;
+    font-family: 'Segoe UI';
+    color: #727475c0;
+    font-weight: 400;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #d8dbddc4;
+}
+
+.contenedor .información-general{
+    margin-left: 50px;
+    font-family: 'Segoe UI';
+    margin-bottom: 10px;
+}
+
+.contenedor .espaciado{
+    margin-top: 50px;
+    margin-left: 30px;
+    width: 970px;
+    border-bottom: 1px solid #d8dbddc4;
+    margin-bottom: 20px;
+}
+
+
+.contenedor .información-general h5{
+    color: #727475c0;
+    font-weight: 300;
+}
+
+.contenedor .formulario{
+    margin-left: 30px;
+}
+
+.contenedor .formulario > ul{
+    padding-top: 20px;
+    border: 1px solid #d8dbddc4;
+    border-radius: 25px;
+}
+
+.contenedor .formulario > ul li{
+    padding-right: 10px;
+    display: inline-block;
+    width: 120px;
+}
+
+.contenedor .graficos{
+    margin-left: 50px;
+    display: none;
+}
+
+.contenedor .graficos h5{
+    color: #727475c0;
+    font-weight: 300;
+}
+
+.contenedor .graficos .ref{
+    display:none;
+    width: 450px;
+    margin-left: 275px;
+}
+
+.contenedor .graficos .ref ul{
+    list-style: none;
+}
+
+.contenedor .graficos .ref ul li{
+    width: 100px;
+    display:inline-block;
+    margin-right: 10px;
+}
+
+.contenedor .graficos .grafica1{
+    width: 600px;
+    margin: 0 auto;
+}
+
+.contenedor .graficos .imagen_grafica1{
+    width: 800px;
+    margin: 10px auto;
+}
+
+.imagen_grafica1 img{
+    width: 640px;
+    height: 360px;
+    margin: 0px 10px;
+}
+
+.imagen_grafica1 .bra1{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #212529;
+    color: white;
+}
+
+
+.imagen_grafica1 .bra2{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #212529;
+    color: white;
+}
+
+.content_img{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contenedor .graficos .graficas_stats1{
+    width: 1000px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.contenedor .graficos .graficas_stats1 ul{
+    list-style: none;
+}
+
+.contenedor .graficos .graficas_stats1 ul li{
+    display: inline-block;
+    text-align: center;
+}
+
+.contenedor .graficos .graficas_stats1 ul li h6{
+    font-weight: 300;
+}
+
+.contenedor .graficos .graficas_stats1 ul li canvas{
+
+}
+
+.contenedor .espaciado2{
+    margin-top: 10px;
+    margin-left: 30px;
+    width: 970px;
+    border-bottom: 1px solid #d8dbddc4;
+    margin-bottom: 20px;
+}
+

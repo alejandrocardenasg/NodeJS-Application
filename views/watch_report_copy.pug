@@ -1,0 +1,618 @@
+extends layout3.pug
+
+block contenido
+        header
+        
+            nav(class="navegacion2")
+
+                div(name="titular")
+                    h1 Mis evaluaciones 
+
+                ul(class="menu2")
+                    li  
+                        a(href="/profile/crearEv") Crear evaluación
+                    li
+                        a(href="/profile") Evaluaciones
+                
+                if(user && file)
+
+                    div(class="infousuario")
+                        h5(name = "bar2")= user.nombre
+                        p="Organización: " + user.org 
+                        p(id="identificacion")="Identificación: " + user.identificacion
+                        p="Fecha de reporte: " + file.fecha
+                        p= "Hora de inicio: " + file.hora_in  + " - "+ "Hora de finalización: " + file.hora_fin
+                        div(class="btn_regresar" id=btn_regresar)
+                            a(href=("/profile/watch/" + user.identificacion)  class="btn btn-dark") Regresar
+
+                    div(class="space10px")
+
+                    div(class="general")
+                        h5(id ="info") Información
+                        div(class="space10px")
+                        if(opciones.normal == true)
+
+                            div(class="contenedor")
+                                div(class="información-general")
+                                    h4 Variables ambientales 
+                                div(class="formulario")
+                                    ul
+                                        li 
+                                            p Tiempo inicial: 
+                                        li
+                                            div(class="form-floating mb-3")
+                                                input(type="number" name =("horas_in_ambientales") min="0" max="23" step="1" class="form-control" id="floatingInput" placeholder="Hora")
+                                                label(for=("horas_in_ambientales")) Horas
+                                        li
+                                            div(class="form-floating mb-3")
+                                                input(type="number" name = ("minutos_in_ambientales") min="0" max="59" step="1" class="form-control" id="floatingInput" placeholder="Minuto")
+                                                label(for=("minutos_in_ambientales")) Minuto
+                                        if(fileemg && opcion == "emg")
+                                            li 
+                                                div(class="form-floating mb-3")
+                                                    input(type="number" name = ("segundos_in_ambientales") min="0" max="59" step="1" class="form-control" id="floatingInput" placeholder="Segundos")
+                                                    label(for=("segundos_in_ambientales")) Segundo      
+                                            br
+
+                                        li 
+                                            p Tiempo final:
+                                        li
+                                            div(class="form-floating mb-3")
+                                                input(type="number" name = ("horas_fin_ambientales") min="0" max="23" step="1" class="form-control" id="floatingInput" placeholder="Hora")
+                                                label(for=("horas_fin_ambientales")) Horas                                     
+                                        li
+                                            div(class="form-floating mb-3")
+                                                input(type="number" name = ("minutos_fin_ambientales") min="0" max="59" step="1" class="form-control" id="floatingInput" placeholder="Minuto")
+                                                label(for=("minutos_fin_ambientales")) Minuto
+                                        if(fileemg && opcion == "emg")
+                                            li 
+                                                div(class="form-floating mb-3")
+                                                    input(type="number" name = ("segundos_fin_ambientales") width= "30px" min="0" max="59" step="1" class="form-control" id="floatingInput" placeholder="Segundos")
+                                                    label(for=("segundos_fin_ambientales")) Segundo        
+                                        li
+                                            div(class="btn_proc")
+                                                a(class="btn btn-dark" id="mostrar_ambientales") Mostrar 
+
+                                div(class="graficos" id="graficos_ambientales")
+                                    h5 Gráficos 
+                                    div(class="ref" id="ref_ambientales")
+                                        ul 
+                                            li 
+                                                div(class="form-floating mb-3")
+                                                    input(type="number" name = ("referencia_min_ambientales") step="0.1" class="form-control" id="floatingInput" placeholder="Referencia")
+                                                    label(for=("referencia_min_ambientales")) Mínimo        
+                                            li 
+                                                div(class="form-floating mb-3")
+                                                    input(type="number" name = ("referencia_max_ambientales") step="0.1" class="form-control" id="floatingInput" placeholder="Referencia")
+                                                    label(for=("referencia_max_ambientales")) Máximo       
+                                            li
+                                                button(class="btn btn-dark" id="btn_ref_ambientales") Fijar
+                                    
+                                    div(class="grafica1")
+                                        canvas(id="grafica1_ambientales")
+
+                                    div(class="graficas_stats1" id= "graficas_stats1_ambientales")
+                                        ul 
+                                            li 
+                                                h6 Datos segmentados
+                                                canvas(id="grafica1_ambientales_ruido")
+                                            li 
+                                                h6 Datos totales
+                                                canvas(id="grafica2_ambientales_ruido")
+                                        ul 
+                                            li 
+                                                h6 Datos segmentados
+                                                canvas(id="grafica1_ambientales_luz")
+                                            li 
+                                                h6 Datos totales
+                                                canvas(id="grafica2_ambientales_luz")
+                                        ul 
+                                            li 
+                                                h6 Datos segmentados
+                                                canvas(id="grafica1_ambientales_temperatura")
+                                            li 
+                                                h6 Datos totales
+                                                canvas(id="grafica2_ambientales_temperatura")
+
+                        if(opciones.emg == true)
+                            h1 aja
+                            
+        script.
+            const btn_amb = document.getElementById('mostrar_ambientales');
+            let chart1a, chart1r,chart2r,chart1l,chart2l,chart1t,chart2t;
+            btn_amb.addEventListener("click", ()=>{
+                mainAmbientales("ambientales");
+            });
+
+            function mainAmbientales(opcion){
+                let ids = {};
+                ids.horasin = 'horas_in_' + opcion;
+                ids.horasfin = 'horas_fin_' + opcion;
+                ids.minin = 'minutos_in_' + opcion;
+                ids.minfin = 'minutos_fin_' + opcion;
+                ids.segin = 'segundos_in_' + opcion;
+                ids.segfin = 'segundos_fin_' + opcion;
+                ids.btnref = 'btn_ref_' + opcion;
+                ids.ref = 'ref_' + opcion;
+                ids.graficos = 'graficos_' + opcion;
+                ids.graficas_stats1 = 'graficas_stats1_' + opcion;
+                ids.grafica1 = "grafica1_" + opcion;
+                ids.grafica_ar_1 = 'grafica1_' + opcion + '_ruido';
+                ids.grafica_ar_2 = 'grafica2_' + opcion + '_ruido';
+                ids.grafica_al_1 = 'grafica1_' + opcion + '_luz';
+                ids.grafica_al_2 = 'grafica2_' + opcion + '_luz';
+                ids.grafica_at_1 = 'grafica1_' + opcion + '_temperatura';
+                ids.grafica_at_2 = 'grafica2_' + opcion + '_temperatura';
+                ids.referencia_max = 'referencia_max_' + opcion;
+                ids.referencia_min = 'referencia_min_' + opcion;
+                ids.btn_source = "mostrar_" + opcion;
+
+                var hora_in = "";
+                var hora_fin = "";
+                var minuto_in = "";
+                var minuto_fin = "";
+                var num = 0;
+
+                hora_in = document.getElementsByName(ids.horasin)[0].value;
+                hora_fin = document.getElementsByName(ids.horasfin)[0].value;
+                minuto_in = document.getElementsByName(ids.minin)[0].value;
+                minuto_fin = document.getElementsByName(ids.minfin)[0].value;
+
+                const btn_ref = document.getElementById(ids.btnref);
+                const ref_element = document.getElementById("ref_ambientales");
+                ref_element.style.display = "block";
+                const graficos = document.getElementById(ids.graficos);
+                const graficos_stats = document.getElementById(ids.graficas_stats1);
+                graficos.style.display = "block";
+                graficos_stats.style.display = "none";
+
+                let variable1,variable2,variable3;
+                variable1 = "#{file.ruido}";
+                variable2 = "#{file.luz}";
+                variable3 = "#{file.temperatura}";
+
+                let labelvar1,labelvar2,labelvar3;
+                labelvar1 = "Ruido (dB)"
+                labelvar2 = "luminosidad (Lx)";
+                labelvar3 = "Temperatura (°C)";
+
+                let labelvar1_min,labelvar2_min,labelvar3_min;
+                labelvar1_min = "Mínimo ruido";
+                labelvar2_min = "Mínima luminosidad";
+                labelvar3_min = "Mínima temperatura";
+
+                let labelvar1_max,labelvar2_max,labelvar3_max;
+                labelvar1_max = "Máximo ruido";
+                labelvar2_max = "Máxima luminosidad";
+                labelvar3_max = "Máxima temperatura";
+
+                variable1 = variable1.split(",");
+                variable2 = variable2.split(",");
+                variable3 = variable3.split(",");
+
+                if(hora_in.length == 1){
+                    hora_in = '0' + hora_in;
+                }
+                if(hora_fin.length == 1){
+                    hora_fin = '0' + hora_fin;
+                }
+                if(minuto_in.length == 1){
+                    minuto_in = '0' + minuto_in;
+                }
+                if(minuto_fin.length == 1){
+                    minuto_fin = '0' + minuto_fin;
+                }  
+
+                var salida = getDatos(variable1,variable2,variable3,hora_in,minuto_in,hora_fin,minuto_fin);
+                var s_horas = salida.horas;
+                var s_datos_1 = salida.datos1;
+                var s_datos_2 = salida.datos2;
+                var s_datos_3 = salida.datos3;
+                console.log(s_datos_1);
+                var req = {
+                            type: 'line',
+                            data: {
+                                labels: s_horas,
+                                datasets:[
+                                {
+                                    label: labelvar1,
+                                    data: s_datos_1,
+                                    backgroundColor: "rgba(255,153,0,0.8)",
+                                    pointRadius:2,
+                                    borderColor: 'rgba(255,153,0,0.3)',
+                                    tension: 0.2
+                                },
+                                {
+                                    label: labelvar2,
+                                    data: s_datos_2,
+                                    backgroundColor: "rgba(30,112,51,0.8)",
+                                    pointRadius:2,
+                                    borderColor: 'rgba(30,112,51,0.3)',
+                                    tension: 0.2
+                                },
+                                {
+                                    label: labelvar3,
+                                    data: s_datos_3,
+                                    backgroundColor: "rgba(220, 177, 42, 0.8)",
+                                    pointRadius:2,
+                                    borderColor: 'rgba(220, 177, 42, 0.3)',
+                                    tension: 0.2
+                                }
+                                ]
+                            }
+                        }
+                graficar1(opcion,ids.grafica1,req); 
+
+                btn_ref.addEventListener("click", ()=>{
+                    const referencia_max = document.getElementsByName(ids.referencia_max)[0].value;
+                    const referencia_min = document.getElementsByName(ids.referencia_min)[0].value;
+                    if(referencia_max != "" && referencia_min != "" && referencia_min < referencia_max){
+                        
+                        const graficos_stats = document.getElementById(ids.graficas_stats1);
+                        graficos_stats.style.display = "block";
+                        let tamaño = s_horas.length;
+                        var array_ref_max = new Array(tamaño);
+                        array_ref_max.fill(referencia_max,0,tamaño);
+                        var array_ref_min = new Array(tamaño);
+                        array_ref_min.fill(referencia_min,0,tamaño);
+                        req = {
+                                type: 'line',
+                                data: {
+                                    labels: s_horas,
+                                    datasets:[
+                                    {
+                                        label: labelvar1,
+                                        data: s_datos_1,
+                                        backgroundColor: "rgba(255,153,0,0.8)",
+                                        pointRadius:2,
+                                        borderColor: 'rgba(255,153,0,0.3)',
+                                        tension: 0.2
+                                    },
+                                    {
+                                        label: labelvar2,
+                                        data: s_datos_2,
+                                        backgroundColor: "rgba(30,112,51,0.8)",
+                                        pointRadius:2,
+                                        borderColor: 'rgba(30,112,51,0.3)',
+                                        tension: 0.2
+                                    },
+                                    {
+                                        label: labelvar3,
+                                        data: s_datos_3,
+                                        backgroundColor: "rgba(220, 177, 42, 0.8)",
+                                        pointRadius:2,
+                                        borderColor: 'rgba(220, 177, 42, 0.3)',
+                                        tension: 0.2
+                                    },
+                                    {
+                                        label: "Referencia mínima",
+                                        data: array_ref_min,
+                                        backgroundColor: "rgba(42,142,26,0)",
+                                        pointRadius:1,
+                                        borderColor: 'rgb(75, 192, 120)'
+                                    },
+                                    {
+                                        label: "Referencia máxima",
+                                        data: array_ref_max,
+                                        backgroundColor: "rgba(242, 16, 16, 0)",
+                                        pointRadius:1,
+                                        borderColor: 'rgba(242, 16, 16)'  
+                                    }]
+                                }
+                            }
+
+                        graficar1(opcion,ids.grafica1,req);
+
+                        var p1 = getPorcentaje(referencia_min,referencia_max,s_datos_3);
+                        var p2 = getPorcentaje(referencia_min,referencia_max,variable);
+                        let opciones = ["ruido","luz","temperatura"];
+                        let textos = [];
+                        let unidad;
+                        switch(opcion){
+                            case "ruido":
+                                unidad = "dB";
+                                break;
+                            case "luz":
+                                unidad = "Lx";
+                                break;
+                            case "temperatura":
+                                unidad = "°C";
+                                break;
+                        }
+
+                        textos.push("Menores a " + referencia_min + " " +unidad);
+                        textos.push("Entre " + referencia_min  + " " + unidad + " y " + referencia_max + " " +unidad);
+                        textos.push("mayores a " + referencia_max + " " +unidad);
+
+
+                    }
+                })
+
+            }
+
+            function getDatos(datos1,datos2,datos3,hora1,minuto1,hora2,minuto2){
+
+                var horas = "#{file.hora}";
+                horas = horas.split(",");
+                var deHora = [];
+                var deMin = [];
+                var horac = [];
+                var ih1 = 0; 
+                var im1 = 0;
+                var ih2 = horas.length - 1;
+                var im2 = horas.length - 1;
+                horas.forEach(function(valor, indice, array){
+                    var min = valor.split(":");
+                    deHora.push(min[0]);
+                    deMin.push(min[1]);
+                });
+
+                if(hora1 != ""){
+                    ih1 = getIndice(hora1,deHora);
+                }
+                if(hora2 != ""){
+                    ih2 = getIndicef(hora2,deHora);
+                }
+
+                deMin = getArraySeg(ih1,ih2,deMin);
+                horas = getArraySeg(ih1,ih2,horas);
+                datos1 = getArraySeg(ih1,ih2,datos1);
+                datos2 = getArraySeg(ih1,ih2,datos2);
+                datos3 = getArraySeg(ih1,ih2,datos3);
+
+                if(minuto1 != ""){
+                    im1 = getIndice(minuto1,deMin);
+                }
+                if(minuto2 != ""){
+                    im2 = getIndicef(minuto2,deMin);
+                }
+
+                if(im2 < im1){
+                    im1 = 0;
+                    im2 = deMin.length -1;
+                }
+
+                horas = getArraySeg(im1,im2,horas);
+                datos1 = getArraySeg(im1,im2,datos1);
+                datos2 = getArraySeg(im1,im2,datos2);
+                datos3 = getArraySeg(im1,im2,datos3);
+                salida = {}
+                salida.horas = horas;
+                salida.datos1 = datos1;
+                salida.datos2 = datos2;
+                salida.datos3 = datos3;
+                return salida;
+            }
+
+            function getDatosemg(datos1,datos2,datos3,hora1,minuto1,hora2,minuto2, segundo1,segundo2){
+
+                var horas = "#{file.horas}";
+                horas = horas.split(",");
+                var deHora = [];
+                var deMin = [];
+                var horac = [];
+                var deSeg = [];
+                var ih1 = 0; 
+                var im1 = 0;
+                var is1 = 0;
+                var ih2 = horas.length - 1;
+                var im2 = horas.length - 1;
+                var is2 = horas.length - 1;
+                horas.forEach(function(valor, indice, array){
+                    var min = valor.split(":");
+                    deHora.push(min[0]);
+                    deMin.push(min[1]);
+                    deSeg.push(min[2]);
+                });
+
+                if(hora1 != ""){
+                    ih1 = getIndice(hora1,deHora);
+                }
+                if(hora2 != ""){
+                    ih2 = getIndicef(hora2,deHora);
+                }
+
+                deMin = getArraySeg(ih1,ih2,deMin);
+                deSeg = getArraySeg(ih1,ih2,deSeg);
+                horas = getArraySeg(ih1,ih2,horas);
+                datos1 = getArraySeg(ih1,ih2,datos1);
+                datos2 = getArraySeg(ih1,ih2,datos2);
+                datos3 = getArraySeg(ih1,ih2,datos3);
+
+
+                if(minuto1 != ""){
+                    im1 = getIndice(minuto1,deMin);
+                }
+                if(minuto2 != ""){
+                    im2 = getIndicef(minuto2,deMin);
+                }
+
+                if(im2 < im1){
+                    im1 = 0;
+                    im2 = deMin.length -1;
+                }
+
+                deSeg = getArraySeg(im1,im2,deSeg);
+                horas = getArraySeg(im1,im2,horas);
+                datos1 = getArraySeg(im1,im2,datos1);
+                datos2 = getArraySeg(im1,im2,datos2);
+                datos3 = getArraySeg(im1,im2,datos3);
+                
+                if(segundo1 != ""){
+                    is1 = getIndice(segundo1, deSeg);
+                }                
+                if(segundo2 != ""){
+                    is2 = getIndicef(segundo2, deSeg);  
+                }
+
+                horas = getArraySeg(is1,is2,horas);
+                datos1 = getArraySeg(is1,is2,datos1);
+                datos2 = getArraySeg(is1,is2,datos2);
+                datos3 = getArraySeg(is1,is2,datos3);
+                
+                salida = {}
+                salida.horas = horas;
+                salida.datos1 = datos1;
+                salida.datos2 = datos2;
+                salida.datos3 = datos3;
+                return salida;
+            }
+
+            function getIndice(dato,array){
+                var index = array.findIndex(ref => ref >= dato);
+                if(index == -1){
+                    index = 0;
+                }
+                return index;
+            }
+
+            function getIndicef(dato,array){
+                var array2 = array.reverse();
+                var index = array2.findIndex(ref => ref <= dato);
+                if(index == -1){
+                    index = 0;
+                }
+                index = (array.length -1) - index;
+                return index;
+            }
+
+            function getArraySeg(indice1,indice2,array){
+                const index2 = indice2 + 1;
+                var newarray = array.slice(indice1,index2);
+                return newarray;
+            }
+
+            function getPorcentaje(minimo,maximo,datos){
+                let tamaño = datos.length;
+                var p1 = 0;
+                var p2 = 0;
+                var p3 = 0;
+                datos.forEach(function(valor, indice, array){
+                    if(valor >= maximo){
+                        p3 = p3 +1;
+                    }else{
+                        if(valor > minimo){
+                            p2 = p2 + 1;
+                        }else{
+                            p1 =p1 + 1;
+                        }
+                    }
+
+                });       
+                p1 = (p1/tamaño)*100;
+                p1 = p1.toFixed(1);
+                p2 = (p2/tamaño)*100;
+                p2 = p2.toFixed(1);
+                p3 = (p3/tamaño)*100;
+                p3 = p3.toFixed(1);
+                var salida = [];
+                salida.push(p1);
+                salida.push(p2);
+                salida.push(p3);
+                return salida;
+            }
+
+            function graficar1(opcion,id,conf){
+                switch(opcion){
+                    case "ambientales":
+                        var ctx = document.getElementById(id).getContext('2d');
+                        if(chart1a){
+                            chart1a.clear();
+                            chart1a.destroy();
+                        }
+
+                        chart1a = new Chart(ctx,conf);
+                        break;
+
+                    case "emg":
+                        var ctx = document.getElementById(id).getContext('2d');
+                        if(chart1e){
+                            chart1e.clear();
+                            chart1e.destroy();
+                        }
+
+                        chart1e = new Chart(ctx,conf);
+                        break;
+                }
+
+            }
+
+            function graficar1b(opcion,id,conf){
+                var ctx = document.getElementById(id).getContext('2d');
+                if(chart1eb){
+                    chart1eb.clear();
+                    chart1eb.destroy();
+                }
+
+                chart1eb = new Chart(ctx,conf);
+            }
+
+            function graficar2(opcion,id,conf){
+                switch(opcion){
+                    case "ruido":
+                        var ctx = document.getElementById(id).getContext('2d');
+                        if(chart2r){
+                            chart2r.clear();
+                            chart2r.destroy();
+                        }
+
+                        chart2r = new Chart(ctx,conf);
+                        break;
+
+                    case "luz":
+                        var ctx = document.getElementById(id).getContext('2d');
+                        if(chart2l){
+                            chart2l.clear();
+                            chart2l.destroy();
+                        }
+
+                        chart2l = new Chart(ctx,conf);
+                        break;
+
+                    case "temperatura":
+                        var ctx = document.getElementById(id).getContext('2d');
+                        if(chart2t){
+                            chart2t.clear();
+                            chart2t.destroy();
+                        }
+
+                        chart2t = new Chart(ctx,conf);
+                        break;
+                }
+
+            }
+
+            function graficar3(opcion,id,conf){
+                switch(opcion){
+                    case "ruido":
+                        var ctx = document.getElementById(id).getContext('2d');
+                        if(chart3r){
+                            chart3r.clear();
+                            chart3r.destroy();
+                        }
+
+                        chart3r = new Chart(ctx,conf);
+                        break;
+
+                    case "luz":
+                        var ctx = document.getElementById(id).getContext('2d');
+                        if(chart3l){
+                            chart3l.clear();
+                            chart3l.destroy();
+                        }
+
+                        chart3l = new Chart(ctx,conf);
+                        break;
+
+                    case "temperatura":
+                        var ctx = document.getElementById(id).getContext('2d');
+                        if(chart3t){
+                            chart3t.clear();
+                            chart3t.destroy();
+                        }
+
+                        chart3t = new Chart(ctx,conf);
+                        break;
+                }
+
+            }

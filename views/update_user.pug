@@ -1,0 +1,53 @@
+extends layout3.pug
+
+block contenido
+
+        header
+        
+            nav(class="navegacion2")
+
+                div(name="titular")
+                    h1 Mis evaluaciones 
+
+                ul(class="menu2")
+                    li  
+                        a(href="/profile/crearEv") Crear evaluación
+                    li
+                        a(href="/profile") Evaluaciones
+
+                if(users)
+
+                    script. 
+                        const btnBuscar = document.getElementById("btn_buscar");
+                        var id = document.getElementById("floatingInput");
+
+                        btnBuscar.addEventListener('click', ()=>{
+                            const valor = id.value;
+                            btnBuscar.setAttribute("href","/profile");
+                            if(valor == ""){
+                                btnBuscar.setAttribute("href","/profile");
+                            }else{
+                                btnBuscar.setAttribute("href","/profile/BuscarId/" + valor);
+                            }
+                        })
+
+                    each user in users
+                        div(class="master_mostrar")
+                            div(class='mostrar_evaluación')
+                                h5(name = "bar1") Evaluación 
+                                h5(name = "bar2")=user.nombre
+
+                                p="Organización: " + user.org 
+                                p(id="identificacion")="Identificación: " + user.identificacion
+                                p="Serial: " + user.serial + " - Tiempo: " + user.tiempo + " Horas"
+                                div(name="espacio-bar")
+                                ul 
+                                    li 
+                                        a(href=("/profile/watch/" + user.identificacion) name="ver_a") Ver 
+                                    li 
+                                        a(href=("/profile/update/" + user.identificacion) id="btn_act") Actualizar 
+                                    li 
+                                        a(href=("/profile/eliminar/" + user.identificacion) name="eliminar_a") Eliminar    
+
+                            div(name="espacio-bar")
+
